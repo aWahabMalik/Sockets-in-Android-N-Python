@@ -10,7 +10,7 @@ public class Sockets {
 
 	public static void main(String[] args) {
 		try {
-			s = new Socket("LAPTOP-M2DI982O",8000);
+			s = new Socket("192.168.1.130",8000);
 			pw = new PrintWriter(s.getOutputStream());
 			pw.flush();
 			pw.close();
