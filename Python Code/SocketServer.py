@@ -20,14 +20,21 @@ print("New connection made!")
 
 running = True
 
-
+message = "afs"
+new1 = ""
 #Main
 while running:
     message = clientsocket.recv(1024).decode() #Receives Message
-    print(message) #Prints Message
     if not message == "":
-        time.sleep(5)
+        print(message)  # Prints Message
+        new1 = message
+        time.sleep(0.5)
     #Closes Server If Message Is Nothing (Client Terminated)
     else:
         clientsocket.close()
         running = False
+
+
+
+print("We are out")
+print(new1)
