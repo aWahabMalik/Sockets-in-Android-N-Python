@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         if(sensorEvent.sensor.getType()==Sensor.TYPE_ACCELEROMETER){
             ((TextView)findViewById(R.id.set1)).setText("X: " + sensorEvent.values[0] + " Y: " + sensorEvent.values[1]+ " Z: " + sensorEvent.values[2]);
+            message = "";
             message = "X: " + sensorEvent.values[0] + " Y: " + sensorEvent.values[1]+ " Z: " + sensorEvent.values[2];
         }
 
@@ -86,13 +87,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         PrintWriter pw;
         @Override
         protected Void doInBackground(Void...params){
-            while(startClicked) {
+            //while(startClicked) {
                 try {
-                    //s = new Socket("LAPTOP-M2DI982O",8000);
+                    //s  = new Socket("LAPTOP-M2DI982O",8000);
                     s = new Socket("192.168.1.130", 8000);
                     pw = new PrintWriter(s.getOutputStream());
-                    pw.write(message);
-                    pw.flush();
+                    while (startClicked){
+                        sendData(s,pw);
+                        System.out.println("Inside");
+                    }
+                    System.out.println("outside");
+                    message = "";
                     pw.close();
                     s.close();
                 } catch (UnknownHostException e) {
@@ -102,8 +107,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     System.out.println("Fail");
                     e.printStackTrace();
                 }
-            }
+            //}
 
+            return null;
+        }
+        protected Void sendData(Socket s, PrintWriter pw){
+            message = "";
+            message = ((TextView)findViewById(R.id.set1)).getText().toString();
+            pw.write(message);
+            pw.flush();
             return null;
         }
 

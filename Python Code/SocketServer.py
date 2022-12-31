@@ -24,6 +24,8 @@ message = "afs"
 new1 = ""
 #Main
 while running:
+    print("\n")
+    message = ""
     message = clientsocket.recv(1024).decode() #Receives Message
     if not message == "":
         print(message)  # Prints Message
