@@ -30,7 +30,7 @@ while running:
     if not message == "":
         print(message)  # Prints Message
         new1 = message
-        time.sleep(0.5)
+        #time.sleep(0.5)
     #Closes Server If Message Is Nothing (Client Terminated)
     else:
         clientsocket.close()
