@@ -1,8 +1,18 @@
 #Imports Modules
 import socket
 import matplotlib.pyplot as plt
-
+from matplotlib import animation
 import time
+
+# Lists for Sensors Data
+AccerometerData = []
+GyroscopeData = []
+MagnetometerData = []
+LinearaccData = []
+GravityData = []
+
+
+
 
 #Defines Server Values
 listensocket = socket.socket()
@@ -22,27 +32,56 @@ print("New connection made!")
 
 running = True
 
-message = "afs"
-new1 = ""
+
+
 #Main
 while running:
-    print("\n")
+    #print("\n")
     message = ""
-    message = clientsocket.recv(1024).decode() #Receives Message
+    message = clientsocket.recv(2000).decode() #Receives Message
     if not message == "":
         cords = message.split(" ")
-        Ac_X = cords[0]
-        Ac_Y = cords[1]
-        Ac_Z = cords[2]
+        #print(len(cords))
+        if(len(cords) == 16):
+            #accer
+            tempList = [float(cords[0]), float(cords[1]), float(cords[2])]
+            AccerometerData.append(tempList)
 
-        print(message)  # Prints Message
-        new1 = message
+            #GyroScop
+            tempList = [float(cords[3]), float(cords[4]), float(cords[5])]
+            GyroscopeData.append(tempList)
+
+            #Magnetometer
+            tempList = [float(cords[6]), float(cords[7]), float(cords[8])]
+            MagnetometerData.append(tempList)
+
+            #LinearAcc
+            tempList = [float(cords[9]), float(cords[10]), float(cords[11])]
+            LinearaccData.append(tempList)
+
+            #Gravity
+            tempList = [float(cords[12]), float(cords[13]), float(cords[14])]
+            GravityData.append(tempList)
+
+
+            print(message)  # Prints Message
+
     #Closes Server If Message Is Nothing (Client Terminated)
     else:
         clientsocket.close()
         running = False
 
 
-
+#plt.show()
 print("We are out")
-print(new1)
+print(AccerometerData)
+
+print("________________________________________________________________")
+print(GyroscopeData)
+print("________________________________________________________________")
+print(MagnetometerData)
+print("________________________________________________________________")
+print(LinearaccData)
+print("________________________________________________________________")
+print(GravityData)
+print("________________________________________________________________")
