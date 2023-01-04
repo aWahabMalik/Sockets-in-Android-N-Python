@@ -1,5 +1,7 @@
 #Imports Modules
 import socket
+import matplotlib.pyplot as plt
+
 import time
 
 #Defines Server Values
@@ -28,9 +30,13 @@ while running:
     message = ""
     message = clientsocket.recv(1024).decode() #Receives Message
     if not message == "":
+        cords = message.split(" ")
+        Ac_X = cords[0]
+        Ac_Y = cords[1]
+        Ac_Z = cords[2]
+
         print(message)  # Prints Message
         new1 = message
-        #time.sleep(0.5)
     #Closes Server If Message Is Nothing (Client Terminated)
     else:
         clientsocket.close()
