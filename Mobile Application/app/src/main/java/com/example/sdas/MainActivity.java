@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             //while(startClicked) {
             try {
                 //s  = new Socket("LAPTOP-M2DI982O",8000);
-                s = new Socket("192.168.1.130", 8000);
+                s = new Socket("192.168.43.176", 8000);
                 pw = new PrintWriter(s.getOutputStream());
                 while (startClicked){
                     sendData(s,pw);

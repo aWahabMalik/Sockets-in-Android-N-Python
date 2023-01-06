@@ -1,8 +1,21 @@
 #Imports Modules
 import socket
-import matplotlib.pyplot as plt
-from matplotlib import animation
+import pymongo
+#import matplotlib.pyplot as plt
+#from matplotlib import animation
 import time
+
+
+#establishing connection with local db
+myClient = pymongo.MongoClient("mongodb://localhost:27017")
+
+#Creating Database
+myDatabase = myClient["SensorData"]
+
+#Creating a collection (Table)
+myCollection = myDatabase["Mobile Sensor Data"]
+
+
 
 # Lists for Sensors Data
 AccerometerData = []
@@ -64,13 +77,18 @@ while running:
             GravityData.append(tempList)
 
 
-            print(message)  # Prints Message
+            print(message)  # Prints Messagen
 
     #Closes Server If Message Is Nothing (Client Terminated)
     else:
         clientsocket.close()
         running = False
+label = "Eating"
+inserted = myCollection.insert_one({"Accelerometer": AccerometerData, "GyroScope": GyroscopeData, "Magnetometer": MagnetometerData, "Linear Accelerometer": LinearaccData, "Gravity": GravityData,"label": label})
 
+
+if myCollection.find_one(inserted.inserted_id):
+    print("Data Inserted Successfully")
 
 #plt.show()
 print("We are out")
